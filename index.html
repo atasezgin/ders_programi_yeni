@@ -9,165 +9,211 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-        body {
             font-family: Arial, sans-serif;
-            overflow: hidden;
         }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #fff; /* Site ilk açıldığında beyaz arkaplan */
+        }
+
         .container {
             display: flex;
-            width: 100vw;
+            flex-direction: column;
             height: 100vh;
-            transition: all 1s ease-in-out;
-        }
-        .left, .right {
-            width: 50%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: width 1s ease-in-out;
             position: relative;
         }
-        .left {
-            background-color: #ffccd5;
+
+        .section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            position: absolute;
+            transition: transform 1s ease-in-out;
         }
-        .right {
-            background-color: #111;
-            color: white;
+
+        .top {
+            background-color: #f8c8dc; /* Toz pembe */
+            top: 0;
+            height: 50vh;
         }
+
+        .bottom {
+            background-color: #000; /* Siyah */
+            bottom: 0;
+            height: 50vh;
+        }
+
         .button {
-            padding: 20px 40px;
-            border: none;
-            border-radius: 20px;
+            padding: 15px 30px;
             font-size: 18px;
+            border: none;
+            border-radius: 10px;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            position: relative;
+            z-index: 2;
         }
+
         .button:hover {
-            transform: scale(1.1);
+            opacity: 0.8;
         }
+
+        .top .button {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .bottom .button {
+            background-color: #fff;
+            color: #000;
+        }
+
+        /* Buton kaybolma ve kayma efekti */
+        .fade-out {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        /* Sayfa kaplama efekti */
+        .overlay {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 0;
+            transition: height 1s ease-in-out;
+            z-index: 1;
+        }
+
+        .overlay.active {
+            height: 100%;
+        }
+
+        .ece-overlay {
+            background-color: #f8c8dc;
+            top: 50%;
+            transform: translateY(0);
+        }
+
+        .ata-overlay {
+            background-color: #000;
+            bottom: 50%;
+            transform: translateY(0);
+        }
+
+        /* Ders Programı Sayfaları */
         .hidden {
             display: none;
         }
+
         .content {
-            display: none;
-            flex-direction: column;
+            display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-start;
-            width: 100vw;
             height: 100vh;
-            overflow: auto;
-            padding-top: 60px;
+            color: white;
+            font-size: 24px;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
+
+        .ece-page {
+            background-color: #f8c8dc;
+        }
+
+        .ata-page {
+            background-color: #000;
+        }
+
         .back-button {
             position: absolute;
             top: 20px;
             left: 20px;
-            background: white;
+            padding: 10px 20px;
+            font-size: 16px;
             border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
-            font-size: 20px;
+            border-radius: 10px;
             cursor: pointer;
+            background-color: #fff;
+            color: #000;
         }
-        table {
-            width: 90%;
-            max-width: 600px;
-            border-collapse: collapse;
-            background: white;
-            font-size: 14px;
-            margin-top: 20px;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-        th {
-            background: #555;
-            color: white;
-        }
-        .atanin-tablosu td:first-child, .ecenin-tablosu td:first-child {
-            color: black;
-            font-weight: bold;
-        }
+
     </style>
 </head>
-<body>
-    <div class="container" id="anaMenu">
-        <div class="left">
-            <button class="button" id="eceninDersProgrami">Ecenin Ders Programı</button>
+<body onload="initializePage()">
+
+    <!-- Sayfa Kaplama Animasyonu -->
+    <div id="eceOverlay" class="overlay ece-overlay"></div>
+    <div id="ataOverlay" class="overlay ata-overlay"></div>
+
+    <!-- Ana Sayfa -->
+    <div class="container" id="mainPage">
+        <div class="section top" id="topSection">
+            <button class="button" id="eceButton" onclick="showPage('ecePage', 'eceOverlay')">Ecenin Ders Programı</button>
         </div>
-        <div class="right">
-            <button class="button" id="ataninDersProgrami">Atanın Ders Programı</button>
+        <div class="section bottom" id="bottomSection">
+            <button class="button" id="ataButton" onclick="showPage('ataPage', 'ataOverlay')">Atanın Ders Programı</button>
         </div>
     </div>
 
-    <div class="content" id="eceninSayfasi" style="background-color: #ffccd5; display: none;">
-        <button class="back-button" id="geriDonEce">⬅</button>
-        <table class="ecenin-tablosu">
-            <tr>
-                <th>Saat / Gün</th>
-                <th>Pazartesi</th>
-                <th>Salı</th>
-                <th>Çarşamba</th>
-                <th>Perşembe</th>
-                <th>Cuma</th>
-            </tr>
-            <tr><td>09:30-10:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>10:30-11:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>11:30-12:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:30-13:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>13:30-14:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>14:30-15:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>15:30-16:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>ONLINE</td><td></td><td></td><td></td><td></td><td></td></tr>
-        </table>
+    <!-- Ecenin Ders Programı Sayfası -->
+    <div id="ecePage" class="hidden content ece-page">
+        <button class="back-button" onclick="goBack()">Geri</button>
+        <div>Ecenin Ders Programı Buraya Gelecek</div>
     </div>
 
-    <div class="content" id="ataninSayfasi" style="background-color: #111; color: white; display: none;">
-        <button class="back-button" id="geriDonAta">⬅</button>
-        <table class="atanin-tablosu">
-            <tr>
-                <th style="color: white;">Saat / Gün</th>
-                <th>Pazartesi</th>
-                <th>Salı</th>
-                <th>Çarşamba</th>
-                <th>Perşembe</th>
-                <th>Cuma</th>
-            </tr>
-            <tr><td>09:30-10:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>10:30-11:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>11:30-12:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>12:30-13:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>13:30-14:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>14:30-15:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>15:30-16:20</td><td></td><td></td><td></td><td></td><td></td></tr>
-            <tr><td>ONLINE</td><td></td><td></td><td></td><td></td><td></td></tr>
-        </table>
+    <!-- Atanın Ders Programı Sayfası -->
+    <div id="ataPage" class="hidden content ata-page">
+        <button class="back-button" onclick="goBack()">Geri</button>
+        <div>Atanın Ders Programı Buraya Gelecek</div>
     </div>
 
     <script>
-        document.getElementById("eceninDersProgrami").addEventListener("click", function() {
-            document.getElementById("anaMenu").style.display = "none";
-            document.getElementById("eceninSayfasi").style.display = "flex";
-        });
-        
-        document.getElementById("ataninDersProgrami").addEventListener("click", function() {
-            document.getElementById("anaMenu").style.display = "none";
-            document.getElementById("ataninSayfasi").style.display = "flex";
-        });
-        
-        document.getElementById("geriDonEce").addEventListener("click", function() {
-            document.getElementById("eceninSayfasi").style.display = "none";
-            document.getElementById("anaMenu").style.display = "flex";
-        });
-        
-        document.getElementById("geriDonAta").addEventListener("click", function() {
-            document.getElementById("ataninSayfasi").style.display = "none";
-            document.getElementById("anaMenu").style.display = "flex";
-        });
+        function initializePage() {
+            document.getElementById("mainPage").style.display = "flex";
+            document.getElementById("ecePage").style.display = "none";
+            document.getElementById("ataPage").style.display = "none";
+        }
+
+        function showPage(pageId, overlayId) {
+            let overlay = document.getElementById(overlayId);
+            let eceButton = document.getElementById("eceButton");
+            let ataButton = document.getElementById("ataButton");
+
+            // Butonların yavaşça kaybolmasını sağla
+            eceButton.classList.add("fade-out");
+            ataButton.classList.add("fade-out");
+
+            // 0.5 saniye sonra kaplama animasyonu başlasın
+            setTimeout(() => {
+                overlay.classList.add("active");
+            }, 500);
+
+            // 1 saniye sonra sayfa değiştir
+            setTimeout(() => {
+                document.getElementById("mainPage").style.display = "none";
+                document.getElementById(pageId).style.display = "flex";
+                overlay.classList.remove("active");
+            }, 1500);
+        }
+
+        function goBack() {
+            document.getElementById("mainPage").style.display = "flex";
+            document.getElementById("ecePage").style.display = "none";
+            document.getElementById("ataPage").style.display = "none";
+
+            // Butonları tekrar görünür yap
+            document.getElementById("eceButton").classList.remove("fade-out");
+            document.getElementById("ataButton").classList.remove("fade-out");
+        }
     </script>
+
 </body>
 </html>
