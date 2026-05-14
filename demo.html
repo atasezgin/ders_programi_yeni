@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>WaitLess Demo App</title>
+
+  <link rel="stylesheet" href="demo.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" 
+    rel="stylesheet"
+  >
+
+  <script 
+    src="https://kit.fontawesome.com/a2e0e6ad59.js" 
+    crossorigin="anonymous">
+  </script>
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-location-dot"></i>
+        </div>
+        <div>
+          <h1>WaitLess</h1>
+          <span>Demo App</span>
+        </div>
+      </div>
+
+      <div class="location-box">
+        <span>Aktif Konum</span>
+        <strong>Çayyolu, Ankara</strong>
+        <button id="changeLocationBtn">
+          <i class="fa-solid fa-location-crosshairs"></i>
+          Konumu Güncelle
+        </button>
+      </div>
+
+      <nav class="side-menu">
+        <button class="side-item active" data-view="places">
+          <i class="fa-solid fa-map-location-dot"></i>
+          Mekanlar
+        </button>
+
+        <button class="side-item" data-view="map">
+          <i class="fa-solid fa-map"></i>
+          Harita
+        </button>
+
+        <button class="side-item" data-view="route">
+          <i class="fa-solid fa-route"></i>
+          Navigasyon
+        </button>
+
+        <button class="side-item" data-view="premium">
+          <i class="fa-solid fa-crown"></i>
+          Premium
+        </button>
+
+        <button class="side-item" data-view="business">
+          <i class="fa-solid fa-store"></i>
+          İşletme Paneli
+        </button>
+      </nav>
+
+      <div class="premium-mini">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <h3>Premium Demo</h3>
+        <p>AI gitme zamanı, reklamsız kullanım ve park filtresi.</p>
+        <button id="openPremiumBtn">İncele</button>
+      </div>
+    </aside>
+
+    <main class="main-app">
+
+      <header class="topbar">
+        <div>
+          <span>Merhaba Ata 👋</span>
+          <h2>Bugün nereye gitmek istiyorsun?</h2>
+        </div>
+
+        <div class="top-actions">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Mekan ara: noter, kafe, oto yıkama..."
+            />
+          </div>
+
+          <button class="icon-btn" id="notificationBtn" aria-label="Bildirim">
+            <i class="fa-solid fa-bell"></i>
+          </button>
+        </div>
+      </header>
+
+      <section class="filters">
+        <button class="filter-btn active" data-category="all">Tümü</button>
+        <button class="filter-btn" data-category="cafe">Kafe</button>
+        <button class="filter-btn" data-category="notary">Noter</button>
+        <button class="filter-btn" data-category="cargo">Kargo</button>
+        <button class="filter-btn" data-category="carwash">Oto Yıkama</button>
+        <button class="filter-btn" data-category="hospital">Hastane</button>
+        <button class="filter-btn" data-category="food">Restoran</button>
+      </section>
+
+      <section class="quick-filters">
+        <label><input type="checkbox" id="lowWaitCheck" /><span>Az bekleme</span></label>
+        <label><input type="checkbox" id="easyParkCheck" /><span>Park kolay</span></label>
+        <label><input type="checkbox" id="valetCheck" /><span>Vale var</span></label>
+        <label><input type="checkbox" id="verifiedCheck" /><span>Doğrulanmış işletme</span></label>
+      </section>
+
+      <section class="content-grid">
+
+        <div class="places-panel view-panel active" id="placesView">
+          <div class="panel-title">
+            <div>
+              <h3>Yakındaki Mekanlar</h3>
+              <span id="resultCount">0 mekan bulundu</span>
+            </div>
+
+            <button class="ghost-btn" id="sortBtn">
+              <i class="fa-solid fa-arrow-down-short-wide"></i>
+              En mantıklı sırala
+            </button>
+          </div>
+
+          <div class="places-list" id="placesList"></div>
+        </div>
+
+        <div class="map-panel view-panel" id="mapView">
+          <div class="panel-title">
+            <div>
+              <h3>Harita Görünümü</h3>
+              <span>Demo marker’lara tıklayarak işletme detaylarını açabilirsin.</span>
+            </div>
+
+            <button class="ghost-btn" id="fitMapBtn">
+              <i class="fa-solid fa-compress"></i>
+              Haritayı Ortala
+            </button>
+          </div>
+
+          <div class="demo-map" id="demoMap">
+            <div class="map-grid-bg"></div>
+            <div class="road road-one"></div>
+            <div class="road road-two"></div>
+            <div class="road road-three"></div>
+
+            <div class="user-location">
+              <i class="fa-solid fa-user"></i>
+              <span>Sen</span>
+            </div>
+
+            <div class="map-markers" id="mapMarkers"></div>
+          </div>
+
+          <div class="map-hint">
+            <i class="fa-solid fa-circle-info"></i>
+            Bu harita demo amaçlıdır. Gerçek uygulamada OpenStreetMap + Leaflet, Mapbox veya Google Maps API kullanılabilir.
+          </div>
+        </div>
+
+        <div class="route-panel view-panel" id="routeView">
+          <div class="panel-title">
+            <div>
+              <h3>Navigasyon Simülasyonu</h3>
+              <span>Seçtiğin mekana göre örnek rota oluşturulur.</span>
+            </div>
+          </div>
+
+          <div class="route-card">
+            <div class="route-map-large">
+              <div class="map-node start-node">
+                <i class="fa-solid fa-user"></i>
+              </div>
+
+              <div class="route-path"></div>
+
+              <div class="map-node finish-node">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+            </div>
+
+            <div class="route-info">
+              <h3 id="routePlaceName">Henüz mekan seçilmedi</h3>
+              <p id="routeSummary">
+                Sol taraftan bir mekan seçip “Navigasyonu Başlat” butonuna bas.
+              </p>
+
+              <div class="route-stats">
+                <div><span>Mesafe</span><strong id="routeDistance">-</strong></div>
+                <div><span>Yol Süresi</span><strong id="routeTime">-</strong></div>
+                <div><span>Bekleme</span><strong id="routeWait">-</strong></div>
+              </div>
+
+              <div class="route-warning" id="routeWarning">
+                <i class="fa-solid fa-circle-info"></i>
+                Mekan seçildiğinde park, vale ve bekleme önerileri burada gösterilir.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="premium-panel view-panel" id="premiumView">
+          <div class="panel-title">
+            <div>
+              <h3>WaitLess Premium</h3>
+              <span>Bu bölüm demo amaçlıdır.</span>
+            </div>
+          </div>
+
+          <div class="premium-demo-grid">
+            <div class="premium-demo-card">
+              <i class="fa-solid fa-ban"></i>
+              <h4>Reklamsız Deneyim</h4>
+              <p>Ücretsiz sürümde görünen reklam alanları premiumda kaldırılır.</p>
+            </div>
+
+            <div class="premium-demo-card">
+              <i class="fa-solid fa-brain"></i>
+              <h4>AI Gitme Zamanı</h4>
+              <p>Uygulama sana “şimdi git” veya “20 dakika sonra git” önerisi verir.</p>
+            </div>
+
+            <div class="premium-demo-card">
+              <i class="fa-solid fa-square-parking"></i>
+              <h4>Park Kolaylığı Filtresi</h4>
+              <p>Parkı zor olan mekanları otomatik ele.</p>
+            </div>
+
+            <div class="premium-demo-card">
+              <i class="fa-solid fa-bell"></i>
+              <h4>Akıllı Bildirim</h4>
+              <p>Favori mekanın sakinleşince bildirim al.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="business-demo-panel view-panel" id="businessView">
+          <div class="panel-title">
+            <div>
+              <h3>İşletme Paneli Demo</h3>
+              <span>İşletmeler bilgilerini buradan güncelleyebilir.</span>
+            </div>
+          </div>
+
+          <div class="business-form">
+            <div>
+              <label>İşletme Adı</label>
+              <input type="text" value="Luma Coffee Çayyolu" />
+            </div>
+
+            <div>
+              <label>Yoğunluk Durumu</label>
+              <select>
+                <option>Sakin</option>
+                <option selected>Orta</option>
+                <option>Yoğun</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Tahmini Bekleme</label>
+              <input type="text" value="8 dakika" />
+            </div>
+
+            <div>
+              <label>Park Durumu</label>
+              <select>
+                <option>Kolay</option>
+                <option selected>Zor</option>
+                <option>Çok Zor</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Otopark</label>
+              <select>
+                <option selected>Var</option>
+                <option>Yok</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Vale</label>
+              <select>
+                <option>Var</option>
+                <option selected>Yok</option>
+              </select>
+            </div>
+
+            <div>
+              <label>Kampanya</label>
+              <input type="text" value="%15 öğrenci indirimi" />
+            </div>
+
+            <div>
+              <label>Menü Güncellemesi</label>
+              <input type="text" value="Latte ₺105, Americano ₺85" />
+            </div>
+
+            <button id="saveBusinessBtn">
+              <i class="fa-solid fa-floppy-disk"></i>
+              Değişiklikleri Kaydet
+            </button>
+          </div>
+        </div>
+
+        <aside class="details-panel">
+          <div class="ad-box" id="adBox">
+            <span>Reklam</span>
+            <h4>Premium ile reklamları kaldır</h4>
+            <p>AI önerileri, akıllı bildirimler ve gelişmiş filtrelere eriş.</p>
+            <button id="removeAdBtn">Reklamı Kaldır</button>
+          </div>
+
+          <div class="selected-card" id="selectedCard">
+            <div class="empty-state">
+              <i class="fa-solid fa-hand-pointer"></i>
+              <h3>Mekan seç</h3>
+              <p>Detayları, menüyü ve navigasyon önerisini görmek için listeden veya haritadan bir mekan seç.</p>
+            </div>
+          </div>
+
+          <div class="community-box">
+            <h3>Topluluk Katkısı</h3>
+
+            <div class="rank-row"><span>Bugünkü bildirim</span><strong>128</strong></div>
+            <div class="rank-row"><span>Menü güncellemesi</span><strong>34</strong></div>
+            <div class="rank-row"><span>Park bildirimi</span><strong>57</strong></div>
+          </div>
+
+          <div class="demo-footer-note">
+            <strong>Gemitry Labs</strong>
+            <span>A Gemitry Labs concept product. Demo interface for WaitLess.</span>
+          </div>
+        </aside>
+
+      </section>
+
+      <footer class="app-footer">
+        <p>© 2026 WaitLess Demo.</p>
+        <p>A Gemitry Labs concept product. Designed and prototyped by Gemitry Labs.</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>İşlem başarılı.</span>
+  </div>
+
+  <script src="demo.js"></script>
+</body>
+</html>

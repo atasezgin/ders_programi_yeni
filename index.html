@@ -1,89 +1,364 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>Ata ve Ece'nin Ders Programı</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .ece-section {
-            background-color: #ffb6c1; /* Toz pembe */
-            height: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: height 0.8s ease;
-        }
-        .ata-section {
-            background-color: #000000; /* Siyah */
-            height: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: height 0.8s ease;
-        }
-        .button {
-            padding: 15px 30px;
-            font-size: 18px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            color: #fff;
-            display: inline-block;
-            transition: opacity 0.5s ease;
-        }
-        .ece-button {
-            background-color: #ff8c94;
-        }
-        .ata-button {
-            background-color: #333333;
-        }
-        .full-screen {
-            height: 100% !important;
-        }
-        .fade-out {
-            opacity: 0;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WaitLess | Gitmeden Önce Bil</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a2e0e6ad59.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <div class="ece-section" id="eceSection">
-        <button class="button ece-button" id="eceBtn">Ece'nin Ders Programı</button>
+  <header class="navbar">
+    <div class="nav-logo">
+      <div class="logo-icon"><i class="fa-solid fa-location-dot"></i></div>
+      <span>WaitLess</span>
     </div>
-    <div class="ata-section" id="ataSection">
-        <button class="button ata-button" id="ataBtn">Ata'nın Ders Programı</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#features">Özellikler</a>
+      <a href="#app">Uygulama</a>
+      <a href="#premium">Premium</a>
+      <a href="#business">İşletmeler</a>
+    </nav>
+
+    <a href="demo.html" target="_blank" class="nav-btn">Demo’yu Dene</a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Menüyü aç/kapat">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero section">
+      <div class="hero-bg-blur blur-one"></div>
+      <div class="hero-bg-blur blur-two"></div>
+
+      <div class="hero-content reveal">
+        <div class="badge">
+          <i class="fa-solid fa-bolt"></i>
+          Topluluk destekli akıllı şehir uygulaması
+        </div>
+
+        <h1>
+          Gitmeden önce bil.
+          <span>Sırada bekleme.</span>
+        </h1>
+
+        <p>
+          WaitLess; mekanların yoğunluğunu, tahmini bekleme süresini, park durumunu,
+          otopark ve vale bilgisini, menüleri ve güncel fiyatları tek ekranda gösterir.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="demo.html" target="_blank" class="primary-btn">
+            Demo’yu Dene
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+
+          <a href="#features" class="secondary-btn">
+            Nasıl Çalışır?
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div>
+            <strong>8 dk</strong>
+            <span>ortalama zaman kazancı</span>
+          </div>
+          <div>
+            <strong>24/7</strong>
+            <span>canlı topluluk bilgisi</span>
+          </div>
+          <div>
+            <strong>AI</strong>
+            <span>akıllı gitme zamanı</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-phone reveal">
+        <div class="phone-frame">
+          <div class="phone-top"><span></span></div>
+
+          <div class="phone-screen">
+            <div class="app-header">
+              <div>
+                <span>Konumun</span>
+                <h3>Çayyolu, Ankara</h3>
+              </div>
+              <button aria-label="Ara"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+
+            <div class="map-card">
+              <div class="map-pin pin-one"></div>
+              <div class="map-pin pin-two"></div>
+              <div class="map-pin pin-three"></div>
+              <div class="route-line"></div>
+            </div>
+
+            <div class="place-card active">
+              <div class="place-top">
+                <div>
+                  <h4>Luma Coffee</h4>
+                  <span>2.1 km • Menü bugün güncellendi</span>
+                </div>
+                <div class="wait-badge">8 dk</div>
+              </div>
+
+              <div class="info-grid">
+                <div><i class="fa-solid fa-users"></i><span>Orta</span></div>
+                <div><i class="fa-solid fa-square-parking"></i><span>Park zor</span></div>
+                <div><i class="fa-solid fa-car-side"></i><span>Vale yok</span></div>
+                <div><i class="fa-solid fa-mug-hot"></i><span>Latte ₺105</span></div>
+              </div>
+
+              <div class="ai-tip">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                20 dakika sonra daha sakin görünüyor.
+              </div>
+            </div>
+
+            <div class="mini-list">
+              <div><span>12. Noter</span><strong>42 dk</strong></div>
+              <div><span>Kargo Şubesi</span><strong>13 dk</strong></div>
+              <div><span>Oto Yıkama</span><strong>5 dk</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="problem section reveal">
+      <div class="section-heading">
+        <span class="eyebrow">Problem</span>
+        <h2>Bir yere gitmeden önce asıl merak ettiğimiz şeyler</h2>
+        <p>İnsanlar sadece mekanın puanına bakmaz. Oraya gidince neyle karşılaşacağını bilmek ister.</p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <i class="fa-solid fa-clock"></i>
+          <h3>Sıra var mı?</h3>
+          <p>Noter, banka, kargo, hastane veya restoranlarda tahmini bekleme süresini gör.</p>
+        </div>
+
+        <div class="problem-card">
+          <i class="fa-solid fa-car"></i>
+          <h3>Park yeri kolay mı?</h3>
+          <p>Park yeri kolay, zor, otopark var, ücretli otopark var veya vale var bilgisini öğren.</p>
+        </div>
+
+        <div class="problem-card">
+          <i class="fa-solid fa-receipt"></i>
+          <h3>Fiyatlar güncel mi?</h3>
+          <p>Kullanıcılar ve işletmeler tarafından güncellenen menü ve fiyat bilgilerine ulaş.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="features section" id="features">
+      <div class="section-heading reveal">
+        <span class="eyebrow">Özellikler</span>
+        <h2>WaitLess sadece harita değil, gerçek hayat asistanı.</h2>
+        <p>Sıra, yoğunluk, park, menü, fiyat ve işletme bilgilerini tek yerde birleştirir.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fa-solid fa-chart-simple"></i></div>
+          <h3>Canlı Yoğunluk</h3>
+          <p>Kullanıcılar ve işletmeler anlık yoğunluk bilgisi paylaşabilir.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+          <h3>Tahmini Bekleme</h3>
+          <p>Bir mekana gitmeden önce ortalama kaç dakika bekleyeceğini gör.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fa-solid fa-square-parking"></i></div>
+          <h3>Park & Vale Bilgisi</h3>
+          <p>Park yeri kolaylığı, otopark, ücretli otopark ve vale durumunu kontrol et.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fa-solid fa-utensils"></i></div>
+          <h3>Güncel Menü</h3>
+          <p>Menü fotoğrafları, fiyatlar ve kampanyalar kullanıcılar tarafından güncellenebilir.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fa-solid fa-medal"></i></div>
+          <h3>Topluluk Puanı</h3>
+          <p>Bilgi ekleyen kullanıcılar puan ve rozet kazanır. Güvenilir katkılar öne çıkar.</p>
+        </div>
+
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fa-solid fa-brain"></i></div>
+          <h3>AI Önerileri</h3>
+          <p>“Şimdi git”, “20 dakika bekle” veya “başka şube daha sakin” gibi öneriler al.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="app-preview section" id="app">
+      <div class="app-preview-content reveal">
+        <span class="eyebrow">Uygulama Deneyimi</span>
+        <h2>Tek ekranda gitmeye değer mi, değil mi öğren.</h2>
+        <p>
+          WaitLess sana sadece mekan bilgisi vermez. Gideceğin yerin gerçek zamanlı durumunu,
+          çevre koşullarını ve en doğru gitme zamanını gösterir.
+        </p>
+
+        <div class="check-list">
+          <div><i class="fa-solid fa-check"></i> Yakındaki en sakin mekanları listele</div>
+          <div><i class="fa-solid fa-check"></i> Park yeri kolay olan yerleri filtrele</div>
+          <div><i class="fa-solid fa-check"></i> Menü fiyatı değişince bildirim al</div>
+          <div><i class="fa-solid fa-check"></i> Favori mekanların yoğunluğunu takip et</div>
+        </div>
+      </div>
+
+      <div class="dashboard reveal">
+        <div class="dash-top">
+          <h3>Bugünkü Akıllı Öneriler</h3>
+          <span>Live</span>
+        </div>
+
+        <div class="dash-card green">
+          <div>
+            <h4>Batıkent Oto Yıkama</h4>
+            <p>Şu an sakin. Park kolay. Ortalama bekleme 5 dk.</p>
+          </div>
+          <i class="fa-solid fa-arrow-trend-down"></i>
+        </div>
+
+        <div class="dash-card yellow">
+          <div>
+            <h4>Çayyolu Kargo</h4>
+            <p>Öğle sonrası yoğunluk düşüyor. 14:30 önerilir.</p>
+          </div>
+          <i class="fa-solid fa-clock"></i>
+        </div>
+
+        <div class="dash-card red">
+          <div>
+            <h4>12. Noter</h4>
+            <p>Yoğun. Tahmini bekleme 42 dk. Alternatif şube öneriliyor.</p>
+          </div>
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+      </div>
+    </section>
+
+    <section class="premium section" id="premium">
+      <div class="section-heading reveal">
+        <span class="eyebrow">Gelir Modeli</span>
+        <h2>Reklam, premium ve işletme üyeliğiyle sürdürülebilir model.</h2>
+        <p>Ücretsiz kullanıcılar reklamlı kullanır. Premium üyeler reklamsız ve daha akıllı deneyim alır.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card reveal">
+          <h3>Free</h3>
+          <p class="price">₺0</p>
+          <span class="price-note">Reklam destekli kullanım</span>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Yakındaki mekanları gör</li>
+            <li><i class="fa-solid fa-check"></i> Yoğunluk bildir</li>
+            <li><i class="fa-solid fa-check"></i> Menü ve fiyat ekle</li>
+            <li><i class="fa-solid fa-check"></i> Temel park bilgisi gör</li>
+          </ul>
+          <a href="demo.html" target="_blank" class="price-link">Demo’yu Dene</a>
+        </div>
+
+        <div class="price-card featured reveal">
+          <div class="popular">En Mantıklı</div>
+          <h3>Premium</h3>
+          <p class="price">₺79<span>/ay</span></p>
+          <span class="price-note">Reklamsız akıllı deneyim</span>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Reklamları kaldır</li>
+            <li><i class="fa-solid fa-check"></i> AI gitme zamanı önerisi</li>
+            <li><i class="fa-solid fa-check"></i> Yoğunluk azalınca bildirim</li>
+            <li><i class="fa-solid fa-check"></i> Park kolaylığı filtresi</li>
+            <li><i class="fa-solid fa-check"></i> Fiyat değişimi takibi</li>
+          </ul>
+          <a href="demo.html" target="_blank" class="price-link premium-link">Premium Demo</a>
+        </div>
+
+        <div class="price-card reveal">
+          <h3>Business</h3>
+          <p class="price">₺399<span>/ay</span></p>
+          <span class="price-note">İşletmeler için panel</span>
+          <ul>
+            <li><i class="fa-solid fa-check"></i> Doğrulanmış işletme rozeti</li>
+            <li><i class="fa-solid fa-check"></i> Menü ve fiyat yönetimi</li>
+            <li><i class="fa-solid fa-check"></i> Kampanya yayınlama</li>
+            <li><i class="fa-solid fa-check"></i> Öne çıkarılmış listeleme</li>
+          </ul>
+          <a href="demo.html" target="_blank" class="price-link">İşletme Demo</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="business section" id="business">
+      <div class="business-box reveal">
+        <div>
+          <span class="eyebrow">WaitLess Business</span>
+          <h2>Mekanını doğrula, müşteriye doğru bilgi ver.</h2>
+          <p>
+            İşletmeler menülerini, fiyatlarını, otopark ve vale bilgilerini, kampanyalarını
+            ve yoğunluk durumlarını kolayca yönetebilir.
+          </p>
+          <a href="demo.html" target="_blank" class="primary-btn">
+            İşletme Panelini Gör
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+
+        <div class="business-panel">
+          <div class="panel-row"><span>Yoğunluk Durumu</span><strong>Orta</strong></div>
+          <div class="panel-row"><span>Otopark</span><strong>Var</strong></div>
+          <div class="panel-row"><span>Vale</span><strong>Yok</strong></div>
+          <div class="panel-row"><span>Menü Güncelliği</span><strong>Bugün</strong></div>
+          <div class="panel-row"><span>Kampanya</span><strong>%15 Öğrenci</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta section reveal">
+      <h2>Zamanını sırada değil, hayatında harca.</h2>
+      <p>WaitLess ile gitmeden önce bekleme süresini, park durumunu, fiyatları ve mekan yoğunluğunu öğren.</p>
+
+      <div class="hero-buttons center">
+        <a href="demo.html" target="_blank" class="primary-btn">
+          Demo’yu Dene
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+        <a href="#premium" class="secondary-btn">Premium Planları Gör</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <div class="nav-logo">
+        <div class="logo-icon"><i class="fa-solid fa-location-dot"></i></div>
+        <span>WaitLess</span>
+      </div>
+      <p>© 2026 WaitLess. Gitmeden önce bil.</p>
     </div>
 
-    <script>
-        const eceBtn = document.getElementById('eceBtn');
-        const ataBtn = document.getElementById('ataBtn');
-        const eceSection = document.getElementById('eceSection');
-        const ataSection = document.getElementById('ataSection');
+    <p class="studio-note">
+      A Gemitry Labs concept product. Designed and prototyped by Gemitry Labs.
+    </p>
+  </footer>
 
-        eceBtn.addEventListener('click', function() {
-            eceBtn.classList.add('fade-out');
-            eceSection.classList.add('full-screen');
-            ataSection.style.height = '0';
-            setTimeout(() => {
-                window.location.href = 'ece.html';
-            }, 800);
-        });
-
-        ataBtn.addEventListener('click', function() {
-            ataBtn.classList.add('fade-out');
-            ataSection.classList.add('full-screen');
-            eceSection.style.height = '0';
-            setTimeout(() => {
-                window.location.href = 'ata.html';
-            }, 800);
-        });
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
